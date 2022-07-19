@@ -34,12 +34,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     "Square Calculator",
-      //     style: TextStyle(color: Colors.black),
-      //   ),
-      // ),
+      appBar: AppBar(
+        title: Text(
+          "Square Calculator",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
       body: SafeArea(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -114,20 +114,20 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: TextButton(
-      //     child: Icon(
-      //       Icons.arrow_back,
-      //       color: Colors.black,
-      //     ),
-      //     onPressed: () {
-      //       setState(() {});
-      //       Navigator.popUntil(
-      //           context, (Route<dynamic> route) => route.isFirst);
-      //     },
-      //   ),
-      //   title: Text("Result Page"),
-      // ),
+      appBar: AppBar(
+        leading: TextButton(
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            setState(() {});
+            Navigator.popUntil(
+                context, (Route<dynamic> route) => route.isFirst);
+          },
+        ),
+        title: Text("Result Page"),
+      ),
       body: Center(
           child: Text(
         (widget.number * widget.number).toString(),
