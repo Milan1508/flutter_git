@@ -2,6 +2,7 @@
 
 import 'package:blood_bank/selection_page.dart';
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   final myController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   String getName() {
     return myController.text;
@@ -36,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.redAccent,
+      backgroundColor: Color.fromARGB(230, 255, 121, 127),
       body: SafeArea(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -62,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           SizedBox(
-            height: 140,
+            height: 50,
           ),
           // SizedBox(
           //   width: double.infinity,
@@ -78,48 +80,88 @@ class _LoginPageState extends State<LoginPage> {
                     )
                   ],
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text("Email", style: styleWhite()),
-                      SizedBox(
-                        height: 33,
-                        width: 230,
-                        child: TextField(
-                          controller: myController,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Text("Password", style: styleWhite()),
-                      SizedBox(
-                        height: 133,
-                        width: 230,
-                        child: TextField(
-                          controller: TextEditingController(text: "********"),
-                        ),
-                      ),
-                      Row(
+                Center(
+                  child: Form(
+                    key: formKey,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          Text("Email", style: styleWhite()),
                           SizedBox(
-                            width: 87,
+                            height: 70,
+                            width: 230,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  hintText: "Email ID",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  prefixIcon: Icon(
+                                    Icons.mail,
+                                    color: Colors.white,
+                                  )),
+                              keyboardType: TextInputType.emailAddress,
+                              autofillHints: [AutofillHints.email],
+                              validator: (email) => email != null &&
+                                      !EmailValidator.validate(email)
+                                  ? 'Enter a valid email'
+                                  : null,
+                              controller: myController,
+                            ),
                           ),
-                          ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                              //  print(myController.text);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) =>  SelectionPage(emailName:myController.text,)) );
-                              });
-                            },
-                            child: Text("Login"),
+                          SizedBox(
+                            height: 12,
                           ),
+                          Text("Password", style: styleWhite()),
+                          SizedBox(
+                            height: 70,
+                            width: 230,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  hintText: "Password",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  prefixIcon: Icon(
+                                    Icons.password,
+                                    color: Colors.white,
+                                  )),
+                              keyboardType: TextInputType.emailAddress,
+                              controller: TextEditingController(),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 87,
+                              ),
+                              ElevatedButton(
+                                style: ButtonStyle(),
+                                onPressed: () {
+                                  setState(() {
+                                    //  print(myController.text);
+                                    final form = formKey.currentState;
+                                    if (form!.validate()) {
+                                      final email = myController.text;
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SelectionPage(
+                                                    emailName:
+                                                        myController.text,
+                                                  )));
+                                    }
+                                  });
+                                },
+                                child: Text("Login"),
+                              ),
+                            ],
+                          )
                         ],
-                      )
-                    ],
+                      ),
+                    ),
                   ),
                 ),
               ],

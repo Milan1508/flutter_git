@@ -22,7 +22,7 @@ class _SelectionPageState extends State<SelectionPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          backgroundColor: Colors.redAccent,
+          backgroundColor: Color.fromARGB(230, 255, 121, 127),
           body: SafeArea(
             child: Center(
               child: Column(
